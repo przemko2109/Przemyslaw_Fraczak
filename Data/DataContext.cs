@@ -19,25 +19,5 @@ namespace Data
             this.State = new List<State>();
             this.Event = new List<Event>();
         }
-        public List<Books> getBooks()
-        {
-            return Books;
-        }
-        public List<Books> getAllBooks()
-        {
-            return AllBooks;
-        }
-        public List<Users> getUsers()
-        {
-            return Users;
-        }
-        public List<State> getState()
-        {
-            return State;
-        }
-        public List<Event> getEvent()
-        {
-            return Event;
-        }
     }
 }

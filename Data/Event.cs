@@ -59,7 +59,6 @@ namespace Data
     }
     public enum StateType
     {
-        adding,
         taking,
         returning
     }

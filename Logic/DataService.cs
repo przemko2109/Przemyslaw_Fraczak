@@ -7,14 +7,103 @@ namespace Logic
 {
     public class DataService
     {
-        private DataRepository repository = new DataContext();
+        private DataRepository repository = new DataRepository();
+
+        public void addBook(string title, int book_id, string author_name, BookType genre)
+        {
+            repository.addBook(new Books(title, book_id, author_name, genre));
+        }
+        public void addAllBook(string title, int book_id, string author_name, BookType genre)
+        {
+            repository.addAllBook(new Books(title, book_id, author_name, genre));
+        }
+        public void addUser(string user_name, int user_id)
+        {
+            repository.addUser(new Users(user_name, user_id));
+        }
+        public void addState(List<Books> book_list)
+        {
+            repository.addState(new State(book_list));
+        }
+        public void addEvent(State state, Users users, Books books, StateType state_type, DateTime date)
+        {
+            repository.addEvent(new Event(state, users, books, state_type, date));
+        }
+
+        public void removeBook(string title, int book_id, string author_name, BookType genre)
+        {
+            repository.removeBook(new Books(title, book_id, author_name, genre));
+        }
+        public void removeAllBook(string title, int book_id, string author_name, BookType genre)
+        {
+            repository.removeAllBook(new Books(title, book_id, author_name, genre));
+        }
+        public void removeUser(string user_name, int user_id)
+        {
+            repository.removeUser(new Users(user_name, user_id));
+        }
+        public void removeState(List<Books> book_list)
+        {
+            repository.removeState(new State(book_list));
+        }
+        public void removeEvent(State state, Users users, Books books, StateType state_type, DateTime date)
+        {
+            repository.removeEvent(new Event(state, users, books, state_type, date));
+        }
+
+        public Books getBook(string title, int book_id, string author_name, BookType genre)
+        {
+            return repository.getBook(new Books(title, book_id, author_name, genre));
+        }
+        public Books getAllBook(string title, int book_id, string author_name, BookType genre)
+        {
+            return repository.getAllBook(new Books(title, book_id, author_name, genre));
+        }
+        public Users getUser(string user_name, int user_id)
+        {
+            return repository.getUser(new Users(user_name, user_id));
+        }
+        public State getState(List<Books> book_list)
+        {
+            return repository.getState(new State(book_list));
+        }
+        public Event getEvent(State state, Users users, Books books, StateType state_type, DateTime date)
+        {
+            return repository.getEvent(new Event(state, users, books, state_type, date));
+        }
+
+        public List<Books> getBookList()
+        {
+            return repository.getBookList();
+        }
+        public List<Books> getAllBookList()
+        {
+            return repository.getAllBookList();
+        }
+        public List<Users> getUserList()
+        {
+            return repository.getUserList();
+        }
+        public List<State> getStateList()
+        {
+            return repository.getStateList();
+        }
+        public List<Event> getEventList()
+        {
+            return repository.getEventList();
+        }
+
+
         public bool checkUser(Users user)
         {
-            return repository.getUsers().Contains(user) ? true : false; 
+            user = new Users(user.userName, user.userId);
+            return getUserList().Contains(user) ? true : false; 
         }
-        public bool checkUserId(Books book, Users user)
+        public bool checkUserId(Users user, Books book)
         {
-            if(repository.getAllBooks().Find(b => b == book).userId == user.userId)
+            user = new Users(user.userName, user.userId);
+            book = new Books(book.Title, book.BookId, book.AuthorName, book.Genre);
+            if(getAllBookList().Find(b => b == book).userId == user.userId)
             {
                 return true;
             }
@@ -23,52 +112,55 @@ namespace Logic
                 return false;
             }
         }
-        public void addUser(Users user)
+        public void addUserToList(Users user)
         {
             if (!checkUser(user))
             {
-                repository.getUsers().Add(user);
+                addUser(user.userName, user.userId);
             }
         }
         public bool checkBook(Books book)
         {
-            return repository.getBooks().Contains(book) ? true : false;
+            return getBookList().Contains(new Books(book.Title, book.BookId, book.AuthorName, book.Genre)) ? true : false;
         }
         public bool checkTakenBook(Books book)
         {
-            return repository.getAllBooks().Contains(book) ? true : false;
+            return getAllBookList().Contains(new Books(book.Title, book.BookId, book.AuthorName, book.Genre)) ? true : false;
         }
-        public void addBook(Books book)
+        public void addBookToList(Books book)
         {
-            State state = new State(repository.getBooks());
             if (!checkBook(book) && !(checkTakenBook(book)))
             {
-                repository.getBooks().Add(book);
-                repository.getAllBooks().Add(book);
-                repository.getState().Add(state);
+                addBook(book.Title, book.BookId, book.AuthorName, book.Genre);
+                addAllBook(book.Title, book.BookId, book.AuthorName, book.Genre);
+                addState(getBookList());
             }
         }
         public void takeBook(Books book, Users user, DateTime time)
         {
-            State state = new State(repository.getBooks());
+            State state = new State(getBookList());
+            book = new Books(book.Title, book.BookId, book.AuthorName, book.Genre);
+            user = new Users(user.userName, user.userId);
             if (checkBook(book))
             {
-                repository.getAllBooks().Find(b => b == book).userId = repository.getUsers().Find(u => u == user).userId;
-                repository.getBooks().Remove(book);
-                repository.getState().Add(state);
-                repository.getEvent().Add(new Event(state, user, book, StateType.taking, time));
+                getBookList().Find(b => b == book).userId = getUserList().Find(u => u == user).userId;
+                removeBook(book.Title, book.BookId, book.AuthorName, book.Genre);
+                addState(getBookList());
+                addEvent(state, user, book, StateType.taking, time);
             }
         }
         public void returnBook(Books book, Users user, DateTime time)
         {
-            State state = new State(repository.getBooks());
-            if (!checkBook(book) && checkTakenBook(book) && checkUserId(book, user))
+            State state = new State(getBookList());
+            if (!checkBook(book) && checkTakenBook(book) && checkUserId(user, book))
             {
-                repository.getBooks().Add(book);
-                repository.getState().Add(state);
-                Event e1 = repository.getEvent().FindLast(x => (x.Book == book && x.usersOfLibrary == user));
-                repository.getEvent().Add(new Event(state, user, book, StateType.returning, time));
-                Event e2 = repository.getEvent().FindLast(x => (x.Book == book && x.usersOfLibrary == user));
+                book = new Books(book.Title, book.BookId, book.AuthorName, book.Genre);
+                user = new Users(user.userName, user.userId);
+                addBook(book.Title, book.BookId, book.AuthorName, book.Genre);
+                addState(getBookList());
+                Event e1 = getEventList().FindLast(x => (x.Book == book && x.usersOfLibrary == user));
+                addEvent(state, user, book, StateType.returning, time);
+                Event e2 = getEventList().FindLast(x => (x.Book == book && x.usersOfLibrary == user));
                 if (e1 != null)
                 {
                     double period = (e2.Day - e1.Day).TotalDays;
@@ -83,30 +175,10 @@ namespace Logic
             }
             
         }
-        public List<Books> getBooks()
-        {
-            return repository.getBooks();
-        }
-        public List<Books> getAllBooks()
-        {
-            return repository.getAllBooks();
-        }
-        public List<Users> getUsers()
-        {
-            return repository.getUsers();
-        }
-        public State getState()
-        {
-            int c = repository.getState().Count;
-            return repository.getState()[c - 1];
-        }
-        public List<Event> getEvent()
-        {
-            return repository.getEvent();
-        }
+        
         public bool checkIfUserExists(Users user)
         {
-            if(repository.getUsers().Any(u => u.userId == user.userId))
+            if(getUserList().Any(u => u.userId == user.userId))
             {
                 return true;
             }
@@ -117,7 +189,7 @@ namespace Logic
         }
         public bool checkIfBookExists(Books book)
         {
-            if (repository.getBooks().Any(b => b.BookId == book.BookId))
+            if (getBookList().Any(b => b.BookId == book.BookId))
             {
                 return true;
             }
