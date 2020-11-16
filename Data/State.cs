@@ -4,7 +4,17 @@ using System.Text;
 
 namespace Data
 {
-    class State
+    public class State
     {
+        private List<Books> states;
+        public List<Books> States
+        {
+            get { return states; }
+            set { states = value; }
+        }
+        public State(List<Books> lob)
+        {
+            this.states = lob;
+        }
     }
 }
