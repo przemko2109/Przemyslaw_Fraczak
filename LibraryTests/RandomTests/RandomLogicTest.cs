@@ -9,12 +9,12 @@ namespace Tests
     [TestClass]
     public class RandomLogicTest
     {
-        static Generator generator = new Generator();
+        static RandomGenerator randomGenerator = new RandomGenerator();
+        DataService dataService = new DataService(new DataRepository(randomGenerator.Generate()));
 
         [TestMethod]
         public void CheckingRandomUser()
         {
-            DataService dataService = new DataService(new DataRepository(generator.RandomGenerate()));
             int firstUserId = dataService.getUserList().Keys.ToList()[0].userId;
 
             Assert.AreEqual(dataService.getUserList().ContainsValue(firstUserId), true);
@@ -24,7 +24,6 @@ namespace Tests
         [TestMethod]
         public void CheckingRandomBook()
         {
-            DataService dataService = new DataService(new DataRepository(generator.RandomGenerate()));
             int firstBookId = dataService.getCatalogBookList().Keys.ToList()[0].BookId;
 
             Assert.AreEqual(dataService.getCatalogBookList().ContainsValue(firstBookId), true);
@@ -34,7 +33,6 @@ namespace Tests
         [TestMethod]
         public void LendingRandomBook()
         {
-            DataService dataService = new DataService(new DataRepository(generator.RandomGenerate()));
             int firstBookId = dataService.getCatalogBookList().Keys.ToList()[0].BookId;
             int firstUserId = dataService.getUserList().Keys.ToList()[0].userId;
 
@@ -55,7 +53,6 @@ namespace Tests
         [TestMethod]
         public void ReturningRandomBook()
         {
-            DataService dataService = new DataService(new DataRepository(generator.RandomGenerate()));
             int firstBookId = dataService.getCatalogBookList().Keys.ToList()[0].BookId;
             int firstUserId = dataService.getUserList().Keys.ToList()[0].userId;
 

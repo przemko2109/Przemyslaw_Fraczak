@@ -7,8 +7,8 @@ namespace Tests
     [TestClass]
     public class RandomDataTest
     {
-        static Generator generator = new Generator();
-        DataRepository randomRepository = new DataRepository(generator.RandomGenerate());
+        static RandomGenerator randomGenerator = new RandomGenerator();
+        DataRepository randomRepository = new DataRepository(randomGenerator.Generate());
 
         [TestMethod]
         public void RandomCatalogTest()
