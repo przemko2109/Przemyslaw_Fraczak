@@ -2,19 +2,44 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Logic;
 using Data;
 using System;
+using System.Linq;
 
 namespace Tests
 {
     [TestClass]
     public class LogicTest
     {
-        Generator generator = new Generator();
+        static Generator generator = new Generator();
+        
+
+        [TestMethod]
+        public void CheckingUser()
+        {
+            DataService dataService = new DataService(new DataRepository(generator.Generate()));
+            int firstUserId = dataService.getUserList().Keys.ToList()[0].userId;
+
+            User user1 = dataService.getUser(1643);
+
+            Assert.AreEqual(dataService.getUserList().ContainsValue(1643), true);
+            Assert.AreEqual(dataService.getUserList().Count, 2);
+        }
+
+        [TestMethod]
+        public void CheckingBook()
+        {
+            DataService dataService = new DataService(new DataRepository(generator.Generate()));
+            int firstBookId = dataService.getCatalogBookList().Keys.ToList()[0].BookId;
+
+            Book book1 = dataService.getCatalogBook(2109);
+
+            Assert.AreEqual(dataService.getCatalogBookList().ContainsValue(2109), true);
+            Assert.AreEqual(dataService.getCatalogBookList().Count, 2);
+        }
 
         [TestMethod]
         public void LendingBook()
         {
             DataService dataService = new DataService(new DataRepository(generator.Generate()));
-
             Book book1 = dataService.getCatalogBook(2109);
             User user1 = dataService.getUser(1643);
 

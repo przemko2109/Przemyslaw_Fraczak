@@ -121,29 +121,13 @@ namespace Logic
             }
         }
 
-        public void addUserToList(int id)
-        {
-            User user = getUser(id);
-            if (!checkUser(id))
-            {
-                addUser(user.userName, user.userId);
-            }
-        }
-        public void addBookToList(Book book)
-        {
-            if (!checkState(book.BookId) && !(checkCatalogBook(book.BookId)))
-            {
-                addCatalogBook(book.Title, book.BookId, book.AuthorName, book.Genre);
-                addState(book.BookId);
-            }
-        }
+       
         public void lendBook(int book_id, int user_id, DateTime time)
         {
             Book book = getCatalogBook(book_id);
             User user = getUser(user_id);
             if (!checkUserBook(book_id, user_id))
             {
-                //getCatalogBookList().FirstOrDefault(b => b.Value == book_id).Key.userId = getUserList().FirstOrDefault(u => u.Value == user_id).Value;
                 removeState(book.BookId);
                 addUserBook(book.BookId, user.userId);
                 addEvent(book, user, StateType.lending, time);
