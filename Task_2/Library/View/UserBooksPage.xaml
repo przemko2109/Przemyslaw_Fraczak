@@ -1,0 +1,24 @@
+﻿<Window x:Class="Library.View.UserBooksPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Library.View"
+        mc:Ignorable="d"
+        Title="UserBooksPage" Height="450" Width="800">
+    <StackPanel>
+        <StackPanel>
+            <Button Command="{Binding BorrowBookPageCommand}" Content="Borrow the book"/>
+            <Button Command="{Binding ReturnBookPageCommand}" Content="Return the book"/>
+            <Button x:Name="refreshButton" Click="Button_Click" Content="Refresh" />
+            <ListView Name="user_books" Width="650" Height="300" Margin="8" ItemsSource="{Binding UserBooks}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="100" DisplayMemberBinding="{Binding Path=UserBookBookId}" Header="Book ID" />
+                        <GridViewColumn Width="100" DisplayMemberBinding="{Binding Path=UserBookUserId}" Header="User ID" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+    </StackPanel>
+</Window>
