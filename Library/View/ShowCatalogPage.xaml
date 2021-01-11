@@ -1,0 +1,26 @@
+﻿<Window x:Class="Library.View.ShowCatalogPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Library.View"
+        mc:Ignorable="d"
+        Title="ShowCatalogPage" Height="450" Width="800">
+    <StackPanel>
+        <Button Command="{Binding AddBookPageCommand}" Content="Add book"/>
+        <Button Command="{Binding RemoveBookPageCommand}" Content="Remove book"/>
+        <Button x:Name="showCatalogRefreshButton" Click="Button_Click" Content="Refresh" />
+        <StackPanel>
+            <ListView Name="catalog_books" Width="650" Height="300" ItemsSource="{Binding Books}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="100" DisplayMemberBinding="{Binding Path=BookId}" Header="ID" />
+                        <GridViewColumn Width="100" DisplayMemberBinding="{Binding Path=Title}" Header="Title" />
+                        <GridViewColumn Width="100" DisplayMemberBinding="{Binding Path=AuthorName}" Header="Author" />
+                        <GridViewColumn Width="100" DisplayMemberBinding="{Binding Path=Genre}" Header="Genre" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+    </StackPanel>
+</Window>

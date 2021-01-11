@@ -1,0 +1,13 @@
+C:\Users\Lenovo\source\repos\Projekty\Library\Service\obj\Debug\Service.csprojAssemblyReference.cache
+C:\Users\Lenovo\source\repos\Projekty\Library\Service\obj\Debug\Service.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\source\repos\Projekty\Library\Service\bin\Debug\Database.mdf
+C:\Users\Lenovo\source\repos\Projekty\Library\Service\bin\Debug\Database_log.ldf
+C:\Users\Lenovo\source\repos\Projekty\Library\Service\bin\Debug\Service.exe.config
+C:\Users\Lenovo\source\repos\Projekty\Library\Service\bin\Debug\Service.exe
+C:\Users\Lenovo\source\repos\Projekty\Library\Service\bin\Debug\Service.pdb
+C:\Users\Lenovo\source\repos\Projekty\Library\Service\bin\Debug\Database.exe
+C:\Users\Lenovo\source\repos\Projekty\Library\Service\bin\Debug\Database.pdb
+C:\Users\Lenovo\source\repos\Projekty\Library\Service\bin\Debug\Database.exe.config
+C:\Users\Lenovo\source\repos\Projekty\Library\Service\obj\Debug\Service.csproj.CopyComplete
+C:\Users\Lenovo\source\repos\Projekty\Library\Service\obj\Debug\Service.exe
+C:\Users\Lenovo\source\repos\Projekty\Library\Service\obj\Debug\Service.pdb
