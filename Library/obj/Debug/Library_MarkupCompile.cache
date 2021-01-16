@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\Lenovo\source\repos\Projekty\Library\Library\obj\Debug\
+C:\Users\Lenovo\source\repos\Projekty\TheLibrary\Library\obj\Debug\
 Library
 none
 false
 DEBUG;TRACE
-C:\Users\Lenovo\source\repos\Projekty\Library\Library\App.xaml
+C:\Users\Lenovo\source\repos\Projekty\TheLibrary\Library\App.xaml
 101105100106
 
 201738075233
-16-924417213
+16-1725003656
 View\BorrowBookPage.xaml;View\MainWindow.xaml;View\AddBookPage.xaml;View\AddUserPage.xaml;View\RemoveBookPage.xaml;View\RemoveUserPage.xaml;View\ReturnBookPage.xaml;View\ShowCatalogPage.xaml;View\ShowUsersPage.xaml;View\UserBooksPage.xaml;
 
 False
